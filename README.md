@@ -43,3 +43,19 @@ JWT_SECRET=your_secret_key
 ```
 4. Run `npm start` to start the server
 5. Visit `http://localhost:3000/api-docs` to view the Swagger documentation
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- [Mongoose](https://www.npmjs.com/package/mongoose)
+- [Express](https://www.npmjs.com/package/express)
+- [JWT](https://www.npmjs.com/package/jsonwebtoken)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Cors](https://www.npmjs.com/package/cors)
+- [Nodemon](https://www.npmjs.com/package/nodemon)
+- [Swagger JSDoc](https://www.npmjs.com/package/swagger-jsdoc)
+- [Swagger UI Express](https://www.npmjs.com/package/swagger-ui-express)
