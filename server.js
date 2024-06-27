@@ -5,6 +5,7 @@ require('dotenv').config();
 const { swaggerUi, specs } = require("./swagger");
 const taskRouter = require('./routes/task.routes');
 const authRouter = require('./routes/auth.routes');
+const userRouter = require('./routes/user.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,8 +21,9 @@ app.get('/', (req, res) => {
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-app.use(taskRouter);
-app.use(authRouter);
+app.use('/api', taskRouter);
+app.use('/api', authRouter);
+app.use('/api', userRouter);
 
 connectDB()
 .then(() => {
