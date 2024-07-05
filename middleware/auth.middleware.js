@@ -1,24 +1,31 @@
-const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../helpers/jwt');
 const User = require('../models/user.model');
+const Token = require('../models/token.model');
 
 const auth = async (req, res, next) => {
+    const authHeader = req.header('Authorization');
+    if (!authHeader) {
+        return res.status(401).send({ error: 'No token provided' });
+    }
+    
+    if (!authHeader.startsWith('Bearer ')) {
+        return res.status(401).send({ error: 'Invalid token format' });
+    }
+    
+    const token = authHeader.replace('Bearer ', '');
     try {
-        const token = req.header('Authorization').replace('Bearer ', '');
-        console.log(`Token: ${token}`);
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(`Decoded token: ${JSON.stringify(decoded)}`);
-        const user = await User.findOne({ _id: decoded._id, 'tokens.token': token });
-        if (!user) {
-            console.log('No user found with this token');
-            throw new Error();
+        const decoded = verifyToken(token);
+        const user = await User.findById(decoded.id);
+        const tokenRecord = await Token.findOne({ token });
+
+        if (!user || !tokenRecord) {
+            return res.status(401).send({ error: 'Invalid token' });
         }
-        console.log(`User found: ${JSON.stringify(user)}`);
+
         req.user = user;
-        req.token = token;
         next();
     } catch (error) {
-        console.log(`Error in auth middleware: ${error}`);
-        res.status(401).send({ error: 'Please authenticate.' });
+        res.status(401).send({ error: 'Invalid token' });
     }
 };
 
