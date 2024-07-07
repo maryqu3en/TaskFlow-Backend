@@ -1,5 +1,5 @@
 const User = require('../models/user.model');
-const { generateToken, deleteToken } = require('../utils/jwt');
+const { generateToken, deleteToken } = require('../helpers/jwt.helpers');
 
 exports.register = async (req, res) => {
     try {
