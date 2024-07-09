@@ -12,7 +12,6 @@ Just for learning purposes.
 - Change task status
 - Login
 - Register
-- 
 
 ## Technologies
 - Node.js
